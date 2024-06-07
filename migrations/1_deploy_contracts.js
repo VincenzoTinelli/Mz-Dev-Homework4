@@ -19,12 +19,8 @@ module.exports = async (deployer, network, accounts) => {
   const totalSupply = 100000;
 
   if (network === "development") {
-    // QUESTE VARIABILI SOTTOSTANTI SI CAMBIANO AL MOMENTO DEL PRIMO DEPLOY EFFETTUATO
-    //SETTANDO A TRUE IS_UPGRADE
-    //SETTANDO L'INDIRIZZO DEL TOKEN AD TOKEN_ADDRESS
-    //IN MODO DA FARE L'UPGRADE AL LANCIO DEL NUOVO TEST
-    let IS_UPGRADE = false;
-    let TOKEN_ADDRESS = "0x3B63e464507A17847778bbEC78308ca6333B6B5D"; //CAMBIA l'indirizzo
+    let IS_UPGRADE = true;
+    let TOKEN_ADDRESS = "0x25594dE9A52eB44005771d82b9deB3fb2f558738"; //CAMBIA l'indirizzo
 
     if (IS_UPGRADE) {
       console.log("Token is being updated...");
@@ -32,6 +28,12 @@ module.exports = async (deployer, network, accounts) => {
         from: deployer,
       });
       console.log(`New token deployed @: ${tokenInstance.address}`);
+
+      // Chiamare initializeV2 per impostare la versione a 2
+      console.log("Initializing V2...");
+      const initializeTx = await tokenInstance.initializeV2({ from: deployer });
+      console.log("Initialized V2");
+
       console.log("Token owner: ", await tokenInstance.owner());
     } else {
       console.log("Token is being deployed...");
@@ -53,6 +55,12 @@ module.exports = async (deployer, network, accounts) => {
         from: deployer,
       });
       console.log(`New token deployed @: ${tokenInstance.address}`);
+
+      // Chiamare initializeV2 per impostare la versione a 2
+      console.log("Initializing V2...");
+      const initializeTx = await tokenInstance.initializeV2({ from: deployer });
+      console.log("Initialized V2");
+
       console.log("Token owner: ", await tokenInstance.owner());
     } else {
       console.log("Token is being deployed...");

@@ -4,9 +4,17 @@ pragma solidity ^0.8.21;
 import "@openzeppelin/contracts-upgradeable/token/ERC20/ERC20Upgradeable.sol";
 import "@openzeppelin/contracts-upgradeable/access/OwnableUpgradeable.sol";
 import "./Token.sol";
-import "./Tokwn2Storage.sol";
 
-contract Token2 is ERC20Upgradeable, OwnableUpgradeable, Token2Storage {
+contract Token2 is ERC20Upgradeable, OwnableUpgradeable {
+  uint8 public VERSION;
+  uint256 public maxSupply;
+
+  // Funzione di inizializzazione per il nuovo upgrade
+  function initializeV2() public reinitializer(2) {
+    require(VERSION < 2, "Already at version 2 or higher");
+    VERSION = 2;
+  }
+
   function initialize(
     string memory _tokenName,
     string memory _tokenSymbol,
@@ -26,7 +34,7 @@ contract Token2 is ERC20Upgradeable, OwnableUpgradeable, Token2Storage {
     maxSupply = _max * 1e18;
   }
 
-  function setVersion(uint8 _ver) external {
+  function setVersion(uint8 _ver) external onlyOwner {
     VERSION = _ver;
   }
 }
