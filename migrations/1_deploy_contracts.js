@@ -24,12 +24,12 @@ module.exports = async (deployer, network, accounts) => {
     //SETTANDO L'INDIRIZZO DEL TOKEN AD TOKEN_ADDRESS
     //IN MODO DA FARE L'UPGRADE AL LANCIO DEL NUOVO TEST
     let IS_UPGRADE = false;
-    let TOKEN_ADDRESS = "0x0"; //CAMBIA l'indirizzo
+    let TOKEN_ADDRESS = "0x3B63e464507A17847778bbEC78308ca6333B6B5D"; //CAMBIA l'indirizzo
 
     if (IS_UPGRADE) {
       console.log("Token is being updated...");
       const tokenInstance = await upgradeProxy(TOKEN_ADDRESS, Token2, {
-        deployer,
+        from: deployer,
       });
       console.log(`New token deployed @: ${tokenInstance.address}`);
       console.log("Token owner: ", await tokenInstance.owner());
@@ -44,13 +44,13 @@ module.exports = async (deployer, network, accounts) => {
       console.log("Token owner: ", await tokenInstance.owner());
     }
   } else if (network === "dashboard") {
-    let IS_UPGRADE = true;
+    let IS_UPGRADE = false;
     let TOKEN_ADDRESS;
 
     if (IS_UPGRADE) {
       console.log("Token is being updated...");
       const tokenInstance = await upgradeProxy(TOKEN_ADDRESS, Token2, {
-        deployer,
+        from: deployer,
       });
       console.log(`New token deployed @: ${tokenInstance.address}`);
       console.log("Token owner: ", await tokenInstance.owner());
