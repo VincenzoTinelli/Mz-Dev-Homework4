@@ -19,6 +19,9 @@ module.exports = async (deployer, network, accounts) => {
   const totalSupply = 100000;
 
   if (network === "development") {
+    // QUI INSERISCI FALSE AL DEPLOY DEL PRIMO TOKEN
+    // TRUE ALL'UPGRADE CON UN NUOVO TOKEN
+    // E L'INDIRIZZO DEL TOKEN DA AGGIORNARE
     let IS_UPGRADE = true;
     let TOKEN_ADDRESS = "0x25594dE9A52eB44005771d82b9deB3fb2f558738"; //CAMBIA l'indirizzo
 
